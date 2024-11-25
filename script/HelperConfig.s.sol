@@ -9,15 +9,17 @@ contract HelperConfig is Script {
         address priceFeed;
         address otherAddress;
     }
-    uint8 public constant DECIMALS = 8;
-    int256 public constant INITIAL_PRICE = 2000e8;
 
     NetworkConfig public activeNetworkConfig;
+    uint8 public constant DECIMALS = 8;
+    int256 public constant INITIAL_PRICE = 2000e8;
+    uint256 public constant SEPOLIA_CHAIN_ID = 11155111;
+    uint256 public constant ETHEREUM_CHAIN_ID = 1;
 
     constructor() {
-        if (block.chainid == 11155111) {
+        if (block.chainid == SEPOLIA_CHAIN_ID) {
             activeNetworkConfig = getSepoliaEthConfig();
-        } else if (block.chainid == 1) {
+        } else if (block.chainid == ETHEREUM_CHAIN_ID) {
             activeNetworkConfig = getMainnetEthConfig();
         } else {
             activeNetworkConfig = getOrCreateAnvilEthConfig();
